@@ -1,12 +1,13 @@
-
 {
-  "name": "Codespace — Kind + Docker-in-Docker",
-  "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
-  "features": {
-    "docker-in-docker": "latest",
-    "kubectl": "latest"
+  "name": "Codespace — Kind + Docker + Helm + jq (fixed)",
+  "build": {
+    "dockerfile": "Dockerfile"
   },
-  "postCreateCommand": "curl -Lo /usr/local/bin/kind https://kind.sigs.k8s.io/dl/v0.23.0/kind-linux-amd64 && chmod +x /usr/local/bin/kind && kubectl version --client || true",
+  "features": {
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {},
+    "ghcr.io/devcontainers/features/common-utils:2": {}
+  },
+  "postCreateCommand": "curl -Lo /usr/local/bin/kind https://kind.sigs.k8s.io/dl/v0.23.0/kind-linux-amd64 && chmod +x /usr/local/bin/kind && curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.30.0/bin/linux/amd64/kubectl && chmod +x kubectl && mv kubectl /usr/local/bin/",
   "forwardPorts": [6443],
   "remoteUser": "vscode"
 }
